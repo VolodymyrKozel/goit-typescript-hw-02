@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import getImagesAPI from '../GetImagesAPI';
+import getImagesAPI from '../../services/api';
 import SearchBar from '../searchBar/SearchBar';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import Loader from '../loader/Loader';
@@ -17,7 +17,7 @@ function App() {
   const [toTop, setToTop] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<ErrorAxios | null>(null);
-  const [currentImage, setCurrentImage] = useState<Image | {}>({});
+  const [currentImage, setCurrentImage] = useState<Image>({} as Image);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [paramsRequest, setParamRequest] = useState<ParamsRequest>({
     query: '',
@@ -25,7 +25,7 @@ function App() {
     perPage: 10,
     client_id: '5oq-O0l79UtWEfgesuk7FNxEhMjgmglWAfYeOAPGJFs',
   });
-  const { isOpen, open, close } = useToggle<boolean>();
+  const { isOpen, open, close } = useToggle();
 
   const handleSearch = (query: string): void => {
     setParamRequest(prevParams => ({

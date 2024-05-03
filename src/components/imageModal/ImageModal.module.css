@@ -9,3 +9,27 @@
   right: 32px;
   fill: #fafafa;
 }
+.list {
+  position: absolute;
+  color: var(--first-color);
+  left: 0;
+  width: 100%;
+  bottom: 0;
+  text-align: center;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--white-color);
+  opacity: 0.89;
+}
+
+.item {
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: color 0.4s ease-in;
+}
+.item:hover {
+  color: var(--title-color);
+}

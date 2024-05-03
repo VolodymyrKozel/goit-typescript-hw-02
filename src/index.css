@@ -141,6 +141,7 @@ body.dark-theme {
 
 /* Modal Content (Image) */
 .Modal2 {
+  position: relative;
   margin: auto;
   display: block;
   max-width: 90%;

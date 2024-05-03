@@ -8,15 +8,14 @@ interface ImageGalleryProps {
   handleOpenModal: (image: Image) => void;
 }
 
-const ImageGallery: FC<ImageGalleryProps> =({
+const ImageGallery =({
   images,
   handleOpenModal,
-}) => {
+}: ImageGalleryProps) => {
 
   return (
     <div className="container">
       <ul className={css.list}>
-        {/* Набір елементів списку із зображеннями */}
         {images.map(image => {
           return (
             <li

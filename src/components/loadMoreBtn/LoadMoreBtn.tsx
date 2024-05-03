@@ -5,7 +5,7 @@ interface LoadMoreBtnProps {
   handleLoadMore: () => void;
   loading: boolean;
 }
-const LoadMoreBtn: React.FC<LoadMoreBtnProps> = ({ handleLoadMore, loading }) => {
+const LoadMoreBtn = ({ handleLoadMore, loading }: LoadMoreBtnProps) => {
   return (
     <button className={css.btn} type="button" onClick={handleLoadMore}>
       {!loading ? 'Load more' : <Loader width={20} height={20} />}

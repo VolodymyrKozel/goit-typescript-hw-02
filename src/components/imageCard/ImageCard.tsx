@@ -5,9 +5,10 @@ type ImageCardProps = {
   image: Image;
 };
 
-const ImageCard: React.FC<ImageCardProps> = ({ image })  =>{
+export default function ImageCard({ image }: ImageCardProps) {
   return (
     <div className={css.container}>
+
       <img
         className={css.img}
         src={image.urls.thumb}
@@ -16,5 +17,3 @@ const ImageCard: React.FC<ImageCardProps> = ({ image })  =>{
     </div>
   );
 }
-
-export default ImageCard;
