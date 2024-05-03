@@ -1,19 +1,24 @@
+import React, {FC, FormEvent} from 'react';
 import css from './SearchBar.module.css';
 import toast, { Toaster } from 'react-hot-toast';
 
-function SearchBar({ onSearch }) {
-  const handleSubmit = evt => {
+interface SearchBarProps {
+  onSearch: (query: string) => void;
+}
+
+const SearchBar: FC<SearchBarProps> = ({ onSearch }) => {
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>): void => {
     evt.preventDefault();
     const form = evt.target;
-    const searchParams = {};
-    searchParams.query = form.elements.query.value;
+    console.log(form);
+    const query = form.elements.query.value;
     // Якщо текстове поле порожнє, виводимо повідомлення
     // і припиняємо виконання функції.
     if (form.elements.query.value.trim() === '') {
       toast.error('Please enter search term!');
       return;
     }
-    onSearch(searchParams);
+    onSearch(query);
     form.reset();
   };
   return (

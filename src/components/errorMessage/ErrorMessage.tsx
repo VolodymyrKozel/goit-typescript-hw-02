@@ -1,6 +1,9 @@
 import css from './ErrorMessage.module.css';
 
-function ErrorMessage({ error }) {
+type ErrorMessageProps = {
+  error: any;
+};
+const ErrorMessage: React.FC<ErrorMessageProps> = ({ error }) => {
   return (
     <div className={css.container}>
       <h1 className={css.heading}>
@@ -11,5 +14,5 @@ function ErrorMessage({ error }) {
       <p className={css.text}>{error.code && error.code}</p>
     </div>
   );
-}
+};
 export default ErrorMessage;

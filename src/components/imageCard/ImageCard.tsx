@@ -1,6 +1,11 @@
+import { Image } from '../App/App.types';
 import css from './ImageCard.module.css';
 
-export default function ImageCard({ image }) {
+type ImageCardProps = {
+  image: Image;
+};
+
+const ImageCard: React.FC<ImageCardProps> = ({ image })  =>{
   return (
     <div className={css.container}>
       <img
@@ -11,3 +16,5 @@ export default function ImageCard({ image }) {
     </div>
   );
 }
+
+export default ImageCard;

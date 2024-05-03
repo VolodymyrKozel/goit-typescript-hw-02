@@ -1,7 +1,7 @@
 import css from './Loader.module.css';
 import { DNA } from 'react-loader-spinner';
 
-export default function Loader({ width = 180, height = 180 }) {
+const Loader = ({ width = 180, height = 180 }) => {
   return (
     <div className={css.wrapper}>
       <DNA
@@ -15,3 +15,5 @@ export default function Loader({ width = 180, height = 180 }) {
     </div>
   );
 }
+
+export default Loader;

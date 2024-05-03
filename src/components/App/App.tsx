@@ -1,39 +1,40 @@
 import { useEffect, useState } from 'react';
-import getImagesAPI from './GetImagesAPI';
-import SearchBar from './searchBar/SearchBar';
-import ErrorMessage from './errorMessage/ErrorMessage';
-import Loader from './Loader/Loader';
-import ImageGallery from './ImageGallery/ImageGallery';
-import ImageModal from './ImageModal/ImageModal';
-import LoadMoreBtn from './LoadMoreBtn/LoadMoreBtn';
-import useToggle from './hooks/useToggle';
-import ToTop from './ToTop/ToTop';
+import getImagesAPI from '../GetImagesAPI';
+import SearchBar from '../searchBar/SearchBar';
+import ErrorMessage from '../errorMessage/ErrorMessage';
+import Loader from '../loader/Loader';
+import ImageGallery from '../imageGallery/ImageGallery';
+import ImageModal from '../imageModal/ImageModal';
+import LoadMoreBtn from '../loadMoreBtn/LoadMoreBtn';
+import useToggle from '../hooks/useToggle';
+import ToTop from '../ToTop/ToTop';
+import { Image, ParamsRequest, Data, ErrorAxios } from './App.types';
 
 import './App.css';
 
 function App() {
-  const [images, setImages] = useState(null);
-  const [toTop, setToTop] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [currentImage, setCurrentImage] = useState({});
-  const [totalPages, setTotalPages] = useState(1);
-  const [paramsRequest, setParamRequest] = useState({
+  const [images, setImages] = useState<Image[]>([]);
+  const [toTop, setToTop] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<ErrorAxios | null>(null);
+  const [currentImage, setCurrentImage] = useState<Image | {}>({});
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const [paramsRequest, setParamRequest] = useState<ParamsRequest>({
     query: '',
     page: 1,
     perPage: 10,
     client_id: '5oq-O0l79UtWEfgesuk7FNxEhMjgmglWAfYeOAPGJFs',
   });
-  const { isOpen, open, close } = useToggle();
+  const { isOpen, open, close } = useToggle<boolean>();
 
-  const handleSearch = ({ query }) => {
+  const handleSearch = (query: string): void => {
     setParamRequest(prevParams => ({
       ...prevParams,
       query: query,
       page: 1,
     }));
   };
-  function handleScrollUp() {
+  function handleScrollUp(): void {
     window.scrollY > 80 ? setToTop(true) : setToTop(false);
   }
   useEffect(() => {
@@ -48,27 +49,28 @@ function App() {
     fetchImages();
   }, [paramsRequest.page, paramsRequest.query]);
 
-  const fetchImages = async () => {
+ async function fetchImages() {
     try {
       setError(null);
       setLoading(true);
-      const { data } = await getImagesAPI(paramsRequest);
+      const data = await getImagesAPI<Data>(paramsRequest);
+      const imagesArray: Image[] = data.results;
       setTotalPages(data.total_pages);
       paramsRequest.page === 1
-        ? setImages(data.results)
-        : setImages(pImg => [...pImg, ...data.results]);
-    } catch (error) {
-      setError(error);
+        ? setImages(imagesArray)
+        : setImages(pImg => [...pImg, ...imagesArray]);
+    } catch (error: ErrorAxios | any) {
+      setError(error as ErrorAxios);
     } finally {
       setLoading(false);
     }
   };
-  function handleOpenModal(image) {
+  function handleOpenModal(image: Image): void {
     setCurrentImage(image);
     open();
   }
-  function handleLoadMore() {
-    setParamRequest(prevParams => ({
+  function handleLoadMore(): void {
+    setParamRequest((prevParams: ParamsRequest) => ({
       ...prevParams,
       page: prevParams.page + 1,
     }));
@@ -77,7 +79,7 @@ function App() {
     <div>
       <SearchBar onSearch={handleSearch} />
       {error && <ErrorMessage error={error} />}
-      {images && (
+      {images && images.length > 0 && (
         <ImageGallery handleOpenModal={handleOpenModal} images={images} />
       )}
       {loading && paramsRequest.page === 1 && <Loader />}

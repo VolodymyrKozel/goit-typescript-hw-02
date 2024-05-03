@@ -1,7 +1,18 @@
-import ImageCard from '../ImageCard/ImageCard';
+import React, { FC } from 'react';
+import ImageCard from '../imageCard/ImageCard';
 import css from './ImageGallery.module.css';
+import { Image } from '../App/App.types';
 
-export default function ImageGallery({ images, handleOpenModal }) {
+interface ImageGalleryProps {
+  images: Image[];
+  handleOpenModal: (image: Image) => void;
+}
+
+const ImageGallery: FC<ImageGalleryProps> =({
+  images,
+  handleOpenModal,
+}) => {
+
   return (
     <div className="container">
       <ul className={css.list}>
@@ -20,3 +31,5 @@ export default function ImageGallery({ images, handleOpenModal }) {
     </div>
   );
 }
+
+export default ImageGallery;
