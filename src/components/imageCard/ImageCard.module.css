@@ -7,3 +7,17 @@
 .img:hover {
   transform: scale(1.1);
 }
+
+@media screen and (min-width: 1440px) {
+  .img {
+    width: 230px;
+    height: 230px;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  .img {
+    width: 280px;
+    height: 280px;
+  }
+}

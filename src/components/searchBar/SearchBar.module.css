@@ -50,3 +50,24 @@
 .btn:is(:hover, :focus) .icon {
   transform: translateX(4px);
 }
+
+@media screen and (max-width: 475px) {
+  .header {
+    padding: 12px 0;
+  }
+  .form {
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    gap: 6px;
+    font-size: 0.8rem;
+    line-height: 1.2;
+  }
+
+  .input {
+    width: fit-content;
+    font-size: 0.8rem;
+    line-height: 1.2;
+  }
+}
